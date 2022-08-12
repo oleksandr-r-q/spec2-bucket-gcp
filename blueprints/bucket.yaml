@@ -1,0 +1,84 @@
+spec_version: 2
+description: s3
+
+
+inputs:
+  REGION:
+    type: string
+    display-style: normal
+    default: "us-central1"
+  ZONE:
+    type: string
+    display-style: normal
+    default: "us-central1-c"
+  PROJECT:
+    type: string
+    display-style: normal
+    default: "alexs-project-239406"
+  VPC_ID:
+    type: string
+    display-style: normal
+    default: "test"
+  CLUSTER_NAME:
+    type: string
+    display-style: normal
+    default: "gke-test"
+  TORQUE_TOKEN_SSM_PARAMETER_NAME:
+    type: string
+    display-style: normal
+    default: "test"
+  EXECUTION_HOST_ONBOARD:
+    type: string
+    display-style: normal
+    default: "test2"
+  SA_POLICIES:
+    type: string
+    display-style: normal
+    default: "roles/editor"
+  SERVICE_ACCOUNT_NAME_FOR_WI:
+    type: string
+    display-style: normal
+    default: "torque-test"
+  SANDBOX_NAMESPACE:
+      type: string
+      display-style: normal
+      default: "sandbox"
+      description: "subdomain must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. 'example.com')"
+  AGENT_NAMESPACE:
+      type: string
+      display-style: normal
+      default: "torque"
+      description: "subdomain must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. 'example.com')"
+  TORQUE_SPACE_NAME:
+      type: string
+      display-style: normal
+      default: "test1234"
+  execution_host:
+    type: execution-host
+    default: test2
+
+grains:
+  bucket:
+    kind: terraform
+    spec:
+      source:
+        store: spec2-bucket-gcp
+        path: terraform/bucket
+      host:
+        cloud-account: GCP
+        compute-service: '{{.inputs.execution_host}}'
+        service-account: torque-test
+      inputs:
+        - PROJECT: '{{.inputs.PROJECT}}'
+        - CLIENT_EMAIL: '{{ .params.CLIENT_EMAIL }}'
+        - SANDBOX_ID: '{{ sandboxid | downcase }}'
+        - cluster_name: '{{.inputs.CLUSTER_NAME}}'
+        - region: '{{.inputs.REGION}}'
+        - zone: '{{.inputs.ZONE}}'
+      outputs:
+        - id
+
+
+outputs:
+  ID:
+    value: '{{ .grains.s3.outputs.id }}'
