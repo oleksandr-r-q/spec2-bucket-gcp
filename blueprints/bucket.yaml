@@ -75,4 +75,5 @@ grains:
         - cluster_name: '{{.inputs.CLUSTER_NAME}}'
         - region: '{{.inputs.REGION}}'
         - zone: '{{.inputs.ZONE}}'
-
+      tags:
+        auto-tag: false
