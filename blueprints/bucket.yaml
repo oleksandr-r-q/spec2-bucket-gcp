@@ -75,10 +75,4 @@ grains:
         - cluster_name: '{{.inputs.CLUSTER_NAME}}'
         - region: '{{.inputs.REGION}}'
         - zone: '{{.inputs.ZONE}}'
-      outputs:
-        - id
 
-
-outputs:
-  ID:
-    value: '{{ .grains.s3.outputs.id }}'
