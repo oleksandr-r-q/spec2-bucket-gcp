@@ -55,7 +55,7 @@ inputs:
       default: "test1234"
   execution_host:
     type: execution-host
-    default: test2
+    default: test-gke
 
 grains:
   bucket:
@@ -67,7 +67,7 @@ grains:
       host:
         cloud-account: GCP
         compute-service: '{{.inputs.execution_host}}'
-        service-account: torque-test
+        service-account: test-gke
       inputs:
         - PROJECT: '{{.inputs.PROJECT}}'
         - CLIENT_EMAIL: '{{ .params.CLIENT_EMAIL }}'
