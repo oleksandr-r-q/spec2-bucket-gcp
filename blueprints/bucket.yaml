@@ -70,7 +70,6 @@ grains:
         service-account: torque-sa
       inputs:
         - PROJECT: '{{.inputs.PROJECT}}'
-        - CLIENT_EMAIL: '{{ .params.CLIENT_EMAIL }}'
         - SANDBOX_ID: '{{ sandboxid | downcase }}'
         - cluster_name: '{{.inputs.CLUSTER_NAME}}'
         - region: '{{.inputs.REGION}}'
